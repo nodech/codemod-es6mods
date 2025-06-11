@@ -1,0 +1,24 @@
+{
+  "include": [
+    "src/**/*.ts",
+    "bin/*",
+    "test/**/*.ts"
+  ],
+  "compilerOptions": {
+    "rootDir": ".",
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+    ],
+
+    "noEmit": true,
+    "module": "NodeNext",
+
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "stripInternal": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+  }
+}

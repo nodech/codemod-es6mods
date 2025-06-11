@@ -1,0 +1,23 @@
+{
+  "name": "codemod-es6mods",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "author": "Nodari Chkuaselidze <nodar.chkuaselidze@gmail.com>",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "bcom2esm": "./bin/bcom2esm"
+  },
+  "dependencies": {
+    "jscodeshift": "^17.3.0",
+    "recast": "https://github.com/nodech/recast#bpatch"
+  },
+  "devDependencies": {
+    "@types/jscodeshift": "^17.3.0",
+    "@types/node": "^22.15.29"
+  },
+  "scripts": {
+    "test": "node --test './test/**/*-test.ts'"
+  }
+}
