@@ -1,0 +1,88 @@
+#!/usr/bin/env node
+
+import {run} from 'jscodeshift/src/Runner.js';
+import path from 'node:path'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const transformExports = path.join(__dirname, '../src/exports.ts');
+const transformImports = path.join(__dirname, '../src/imports.ts');
+
+const filePath = process.argv[2];
+
+if (!filePath) {
+  console.error('Please provide a path to the file or directory to transform.');
+  process.exit(1);
+}
+
+try {
+  const {
+    options,
+    args
+  }  = parseRemoveArgs();
+
+  if (args.length === 0) {
+    console.error('No files or directories specified for transformation.');
+    process.exit(1);
+  }
+
+  // First we transform exports
+  await run(transformExports, args, options);
+
+  // Then we transform imports
+  await run(transformImports, args, options);
+
+  // Then we transform the main code
+} catch (error) {
+  console.error('Error running transformation:', error);
+  process.exit(1);
+}
+
+function parseRemoveArgs() {
+  const args = process.argv.slice(2);
+  const filtered = [];
+  const options = {
+    dry: false,
+    verbose: 0,
+    print: false,
+    cpus: null
+  };
+
+  for (let i = 0; i < args.length; i++) {
+      const arg = args[i];
+
+    if (arg === '--dry' || arg === '-d') {
+      options.dry = true;
+      continue;
+    }
+
+    if (arg === '--verbose' || arg === '-v') {
+      options.verbose = 1;
+      continue;
+    }
+
+    if (arg === '--print' || arg === '-p') {
+      options.print = true;
+      continue;
+    }
+
+    if (arg === '--cpus' || arg === '-c') {
+      const value = parseInt(args[i + 1]);
+
+      if (Number.isNaN(value) || value <= 0) {
+        throw new Error('Invalid number of CPUs specified.');
+      }
+
+      options.cpus = value;
+      i++;
+      continue;
+    }
+
+
+    filtered.push(arg);
+  }
+
+  return {
+    args: filtered,
+    options
+  };
+}
