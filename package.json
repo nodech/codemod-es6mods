@@ -18,6 +18,7 @@
     "@types/node": "^22.15.29"
   },
   "scripts": {
-    "test": "node --test './test/**/*-test.ts'"
+    "test": "node --test './test/**/*-test.ts'",
+    "lint-types": "tsc -p ."
   }
 }
