@@ -1,12 +1,13 @@
 import { describe, it } from 'node:test';
-import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 import { transformExports } from '../src/exports.ts';
+import { codeEquals } from './util/common.ts';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const dataDir = path.join(__dirname, 'data');
 const transformExportsDir = path.join(dataDir, 'transform-exports');
+const debugGen = process.env.DEBUG_GEN === 'true';
 
 describe('Transform Exports', function() {
   const files = fs.readdirSync(transformExportsDir);
@@ -40,7 +41,16 @@ describe('Transform Exports', function() {
       }
 
       const transformed = transformExports(before);
-      assert.strictEqual(transformed, after);
+
+      if (debugGen) {
+        console.log('Writing to ', path.join(transformExportsDir, name + '.gen.js'));
+        fs.writeFileSync(
+          path.join(transformExportsDir, name + '.gen.js'),
+          transformed
+        );
+      }
+
+      codeEquals(transformed, after);
     });
   }
 });

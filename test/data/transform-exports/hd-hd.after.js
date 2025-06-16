@@ -13,10 +13,6 @@ const HDPrivateKey = require('./private');
 const HDPublicKey = require('./public');
 const wordlist = require('./wordlist');
 
-/** @typedef {import('../protocol/network')} Network */
-/** @typedef {import('../types').Base58String} Base58String */
-/** @typedef {import('../types').NetworkType} NetworkType */
-
 /**
  * Instantiate an HD key (public or private) from an base58 string.
  * @param {Base58String} xkey
@@ -88,7 +84,7 @@ export function decode(data, network) {
   if (HDPrivateKey.isRaw(data, network))
     return HDPrivateKey.decode(data, network);
   return HDPublicKey.decode(data, network);
-};
+}
 
 /**
  * Generate an hdkey from any number of options.
@@ -114,7 +110,7 @@ export function from(options, network) {
     return fromMnemonic(options);
 
   throw new Error('Cannot create HD key from bad options.');
-};
+}
 
 /**
  * Test whether an object is in the form of a base58 hd key.
@@ -126,7 +122,7 @@ export function from(options, network) {
 export function isBase58(data, network) {
   return HDPrivateKey.isBase58(data, network)
     || HDPublicKey.isBase58(data, network);
-};
+}
 
 /**
  * Test whether an object is in the form of a serialized hd key.
@@ -138,7 +134,7 @@ export function isBase58(data, network) {
 export function isRaw(data, network) {
   return HDPrivateKey.isRaw(data, network)
     || HDPublicKey.isRaw(data, network);
-};
+}
 
 /**
  * Test whether an object is an HD key.
@@ -149,7 +145,7 @@ export function isRaw(data, network) {
 export function isHD(obj) {
   return HDPrivateKey.isHDPrivateKey(obj)
     || HDPublicKey.isHDPublicKey(obj);
-};
+}
 
 /**
  * Test whether an object is an HD private key.
@@ -159,7 +155,7 @@ export function isHD(obj) {
 
 export function isPrivate(obj) {
   return HDPrivateKey.isHDPrivateKey(obj);
-};
+}
 
 /**
  * Test whether an object is an HD public key.
@@ -169,11 +165,7 @@ export function isPrivate(obj) {
 
 export function isPublic(obj) {
   return HDPublicKey.isHDPublicKey(obj);
-};
-
-/*
- * Expose
- */
+}
 
 export {
   common,
@@ -182,5 +174,5 @@ export {
   HDPublicKey as PublicKey,
   HDPrivateKey,
   HDPublicKey,
-  wordlist,
+  wordlist
 };

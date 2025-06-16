@@ -35,7 +35,7 @@ export const MANDATORY_LOCKTIME_FLAGS = 0;
  */
 
 export const STANDARD_LOCKTIME_FLAGS = 0
-  | exports.MANDATORY_LOCKTIME_FLAGS;
+  | MANDATORY_LOCKTIME_FLAGS;
 
 /**
  * Threshold states for versionbits

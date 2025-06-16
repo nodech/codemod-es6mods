@@ -2,11 +2,12 @@ import type { FileInfo } from 'jscodeshift';
 import { namedTypes } from 'ast-types';
 
 export class TransformError extends Error {
-  constructor(message: string, file: FileInfo, loc: namedTypes.SourceLocation) {
+  constructor(message: string, file: FileInfo, loc?: namedTypes.SourceLocation) {
     super();
 
     this.name = 'TransformError';
-    this.message = `${message} (at ${file?.path}:${loc.start.line}:${loc.start.column})`
+    const locStr = loc ? `:${loc.start.line}:${loc.start.column}` : '';
+    this.message = `${message} (at ${file?.path}${locStr}})`
   }
 }
 
